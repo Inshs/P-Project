@@ -62,3 +62,6 @@
   - **테마 적용**: `ThemeData.light()`와 `ThemeData.dark()`를 정의하고, `SettingsPage`의 스위치와 연동.
   - **홈 화면 대응**: 홈 화면의 카드 및 텍스트 색상이 다크 모드 상태에 따라 동적으로 변경되도록 수정.
   - **전체 화면 적용**: `CarInfoInputPage`, `MyPage`, `ResultPage`, `NegotiationPage`의 하드코딩된 색상을 제거하고, `Theme.of(context)`를 사용하여 다크 모드 시 배경색, 텍스트 색상, 카드 색상이 올바르게 변경되도록 수정.
+
+### 2025-11-26
+- **GitHub 업로드**: 현재까지 작업한 모든 파일 및 변경 사항을 원격 저장소(`origin/main`)에 푸시 완료.
