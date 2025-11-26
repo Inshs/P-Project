@@ -2,9 +2,21 @@ import 'package:flutter/material.dart';
 import 'car_info_input_page.dart';
 import 'mypage.dart';
 import 'settings_page.dart';
+import 'car_detail_page.dart';
+import 'models/car_data.dart';
+
+import 'package:provider/provider.dart';
+import 'providers/comparison_provider.dart';
 
 void main() {
-  runApp(const CarPriceApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ComparisonProvider()),
+      ],
+      child: const CarPriceApp(),
+    ),
+  );
 }
 
 class CarPriceApp extends StatefulWidget {
@@ -530,75 +542,94 @@ class CarCard extends StatelessWidget {
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black87;
 
-    return Container(
-      width: 140,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(20),
-        border:
-            Border.all(color: isDark ? Colors.grey[800]! : Colors.grey[50]!),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
+    return GestureDetector(
+      onTap: () {
+        // 상세 페이지로 이동 (임시 CarData 생성)
+        final carData = CarData(
+          id: 'dummy_${name.hashCode}',
+          name: name,
+          price: price,
+          info: info,
+          date: '최근 조회',
+          color: color,
+        );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => CarDetailPage(car: carData),
           ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 차량 이미지 영역 (플레이스홀더)
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.circular(16),
-              ),
-              child: Center(
-                child: Icon(
-                  Icons.directions_car_filled,
-                  color: Colors.white.withOpacity(0.5),
-                  size: 48,
+        );
+      },
+      child: Container(
+        width: 140,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: cardColor,
+          borderRadius: BorderRadius.circular(20),
+          border:
+              Border.all(color: isDark ? Colors.grey[800]! : Colors.grey[50]!),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.04),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // 차량 이미지 영역 (플레이스홀더)
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.directions_car_filled,
+                    color: Colors.white.withOpacity(0.5),
+                    size: 48,
+                  ),
                 ),
               ),
             ),
-          ),
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
 
-          // 차량 정보 텍스트
-          Text(
-            name,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-              color: textColor,
+            // 차량 정보 텍스트
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                color: textColor,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            info,
-            style: TextStyle(
-              fontSize: 10,
-              color: Colors.grey[500],
-              fontWeight: FontWeight.w500,
+            const SizedBox(height: 4),
+            Text(
+              info,
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.grey[500],
+                fontWeight: FontWeight.w500,
+              ),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
             ),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          const SizedBox(height: 6),
-          Text(
-            price,
-            style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF0066FF),
+            const SizedBox(height: 6),
+            Text(
+              price,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0066FF),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
