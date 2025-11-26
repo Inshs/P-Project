@@ -9,7 +9,8 @@ class ResultPage extends StatefulWidget {
   State<ResultPage> createState() => _ResultPageState();
 }
 
-class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateMixin {
+class _ResultPageState extends State<ResultPage>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -29,7 +30,7 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black;
-    final subTextColor = isDark ? Colors.grey[400] : Colors.grey[600];
+
     final borderColor = isDark ? Colors.grey[800]! : Colors.grey[100]!;
 
     return Scaffold(
@@ -123,7 +124,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
               unselectedLabelColor: Colors.grey[400],
               indicatorColor: const Color(0xFF0066FF),
               indicatorWeight: 3,
-              labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
               tabs: const [
                 Tab(text: "가격 분석"),
                 Tab(text: "구매 타이밍"),
@@ -174,7 +176,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                       CircularProgressIndicator(
                         value: 0.87,
                         strokeWidth: 15,
-                        backgroundColor: isDark ? Colors.grey[800] : Colors.grey[200],
+                        backgroundColor:
+                            isDark ? Colors.grey[800] : Colors.grey[200],
                         color: const Color(0xFF0066FF),
                       ),
                       const Center(
@@ -191,7 +194,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                             ),
                             Text(
                               "높은 신뢰도",
-                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.grey),
                             ),
                           ],
                         ),
@@ -216,7 +220,10 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
               children: [
                 Text(
                   "비슷한 차량 가격 분포",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 const Text(
                   "최근 3개월 거래 데이터 기준",
@@ -270,7 +277,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                       ),
                     ],
                   ),
-                  child: const Icon(Icons.circle, color: Colors.white, size: 24),
+                  child:
+                      const Icon(Icons.circle, color: Colors.white, size: 24),
                 ),
                 const SizedBox(height: 20),
                 const Text(
@@ -303,15 +311,21 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
               children: [
                 Text(
                   "타이밍 지표",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 const SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _buildCircularIndicator(78, "거시경제", const Color(0xFF00C853), isDark, textColor),
-                    _buildCircularIndicator(73, "트렌드", const Color(0xFFFFAB00), isDark, textColor),
-                    _buildCircularIndicator(76, "신차 일정", const Color(0xFF00C853), isDark, textColor),
+                    _buildCircularIndicator(
+                        78, "거시경제", const Color(0xFF00C853), isDark, textColor),
+                    _buildCircularIndicator(
+                        73, "트렌드", const Color(0xFFFFAB00), isDark, textColor),
+                    _buildCircularIndicator(76, "신차 일정",
+                        const Color(0xFF00C853), isDark, textColor),
                   ],
                 ),
               ],
@@ -332,7 +346,10 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
               children: [
                 Text(
                   "상세 분석",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: textColor),
                 ),
                 const SizedBox(height: 16),
                 _buildCheckItem("저금리 시기로 구매 부담 감소", textColor),
@@ -346,7 +363,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildCircularIndicator(int score, String label, Color color, bool isDark, Color textColor) {
+  Widget _buildCircularIndicator(
+      int score, String label, Color color, bool isDark, Color textColor) {
     return Column(
       children: [
         SizedBox(
@@ -375,7 +393,9 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
           ),
         ),
         const SizedBox(height: 8),
-        Text(label, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: textColor)),
+        Text(label,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 14, color: textColor)),
         const Text("/ 100", style: TextStyle(color: Colors.grey, fontSize: 10)),
       ],
     );
@@ -416,7 +436,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     color: Color(0xFF0066FF),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.smart_toy, color: Colors.white, size: 20),
+                  child: const Icon(Icons.smart_toy,
+                      color: Colors.white, size: 20),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -425,12 +446,16 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     children: [
                       Text(
                         "AI 조언",
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: textColor),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: textColor),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         "이 차량은 시세 대비 적정합니다. 현재 시장에서 동일한 연식과 주행거리를 가진 차량들과 비교했을 때 합리적인 가격대를 형성하고 있습니다.\n\n다만, 구매 전 반드시 차량 상태를 직접 확인하고, 정비 이력과 사고 이력을 꼼꼼히 확인하시기 바랍니다.",
-                        style: TextStyle(color: textColor, height: 1.5, fontSize: 14),
+                        style: TextStyle(
+                            color: textColor, height: 1.5, fontSize: 14),
                       ),
                     ],
                   ),
@@ -455,7 +480,10 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                   children: [
                     Text(
                       "허위매물 위험도",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: textColor),
                     ),
                     Row(
                       children: [
@@ -484,7 +512,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                   borderRadius: BorderRadius.circular(10),
                   child: LinearProgressIndicator(
                     value: 0.35,
-                    backgroundColor: isDark ? Colors.grey[800] : Colors.grey[100],
+                    backgroundColor:
+                        isDark ? Colors.grey[800] : Colors.grey[100],
                     color: const Color(0xFF00C853),
                     minHeight: 10,
                   ),
@@ -493,8 +522,13 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                 const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("위험도 점수", style: TextStyle(color: Colors.grey, fontSize: 12)),
-                    Text("35 / 100", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.grey)),
+                    Text("위험도 점수",
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    Text("35 / 100",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12,
+                            color: Colors.grey)),
                   ],
                 ),
                 const SizedBox(height: 16),
@@ -516,7 +550,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NegotiationPage(initialTabIndex: 0),
+                        builder: (context) =>
+                            const NegotiationPage(initialTabIndex: 0),
                       ),
                     );
                   },
@@ -526,7 +561,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     backgroundColor: const Color(0xFF0066FF),
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
               ),
@@ -537,7 +573,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const NegotiationPage(initialTabIndex: 1),
+                        builder: (context) =>
+                            const NegotiationPage(initialTabIndex: 1),
                       ),
                     );
                   },
@@ -547,7 +584,8 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
                     foregroundColor: const Color(0xFF0066FF),
                     side: const BorderSide(color: Color(0xFF0066FF)),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
                   ),
                 ),
               ),
@@ -562,18 +600,25 @@ class _ResultPageState extends State<ResultPage> with SingleTickerProviderStateM
             decoration: BoxDecoration(
               color: isDark ? const Color(0xFF3E2723) : const Color(0xFFFFF8E1),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: isDark ? const Color(0xFF4E342E) : const Color(0xFFFFECB3)),
+              border: Border.all(
+                  color: isDark
+                      ? const Color(0xFF4E342E)
+                      : const Color(0xFFFFECB3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.info_outline, color: Color(0xFFFFAB00), size: 20),
+                    const Icon(Icons.info_outline,
+                        color: Color(0xFFFFAB00), size: 20),
                     const SizedBox(width: 8),
                     Text(
                       "구매 전 확인사항",
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: textColor),
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          color: textColor),
                     ),
                   ],
                 ),

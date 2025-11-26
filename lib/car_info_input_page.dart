@@ -31,7 +31,7 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black;
-    final subTextColor = isDark ? Colors.grey[400] : Colors.grey[600];
+
     final borderColor = isDark ? Colors.grey[700]! : Colors.grey[200]!;
 
     return Scaffold(
@@ -83,7 +83,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                             hint: "브랜드 선택",
                             value: _selectedBrand,
                             items: ["현대", "기아", "BMW", "Mercedes"],
-                            onChanged: (val) => setState(() => _selectedBrand = val),
+                            onChanged: (val) =>
+                                setState(() => _selectedBrand = val),
                             isDark: isDark,
                             textColor: textColor,
                             borderColor: borderColor,
@@ -95,7 +96,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                             hint: "모델 선택",
                             value: _selectedModel,
                             items: ["아반떼", "쏘나타", "그랜저", "X5", "E-Class"],
-                            onChanged: (val) => setState(() => _selectedModel = val),
+                            onChanged: (val) =>
+                                setState(() => _selectedModel = val),
                             isDark: isDark,
                             textColor: textColor,
                             borderColor: borderColor,
@@ -138,14 +140,16 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                               ),
                             ),
                           ),
-                          const Text("km", style: TextStyle(color: Colors.grey)),
+                          const Text("km",
+                              style: TextStyle(color: Colors.grey)),
                         ],
                       ),
                     ),
                     const SizedBox(height: 24),
 
                     // 연료 타입
-                    const Text("연료", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    const Text("연료",
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 12),
                     Wrap(
                       spacing: 8,
@@ -197,15 +201,21 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                     const SizedBox(height: 20),
 
                     // 성능 점검 (별점)
-                    const Text("성능 점검", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    const Text("성능 점검",
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 8),
                     Row(
                       children: List.generate(5, (index) {
                         return GestureDetector(
-                          onTap: () => setState(() => _performanceRating = index + 1),
+                          onTap: () =>
+                              setState(() => _performanceRating = index + 1),
                           child: Icon(
                             Icons.star_rounded,
-                            color: index < _performanceRating ? const Color(0xFFFFC107) : (isDark ? Colors.grey[700] : Colors.grey[200]),
+                            color: index < _performanceRating
+                                ? const Color(0xFFFFC107)
+                                : (isDark
+                                    ? Colors.grey[700]
+                                    : Colors.grey[200]),
                             size: 32,
                           ),
                         );
@@ -220,24 +230,50 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                     const SizedBox(height: 16),
 
                     // 옵션 그리드
-                    const Text("옵션", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    const Text("옵션",
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 8),
                     Row(
                       children: [
                         Expanded(
                           child: Column(
                             children: [
-                              _buildCheckboxRow("선루프", _hasSunroof, (v) => setState(() => _hasSunroof = v!), textColor, borderColor),
-                              _buildCheckboxRow("가죽시트", _hasLeatherSeats, (v) => setState(() => _hasLeatherSeats = v!), textColor, borderColor),
-                              _buildCheckboxRow("후방카메라", _hasRearCamera, (v) => setState(() => _hasRearCamera = v!), textColor, borderColor),
+                              _buildCheckboxRow(
+                                  "선루프",
+                                  _hasSunroof,
+                                  (v) => setState(() => _hasSunroof = v!),
+                                  textColor,
+                                  borderColor),
+                              _buildCheckboxRow(
+                                  "가죽시트",
+                                  _hasLeatherSeats,
+                                  (v) => setState(() => _hasLeatherSeats = v!),
+                                  textColor,
+                                  borderColor),
+                              _buildCheckboxRow(
+                                  "후방카메라",
+                                  _hasRearCamera,
+                                  (v) => setState(() => _hasRearCamera = v!),
+                                  textColor,
+                                  borderColor),
                             ],
                           ),
                         ),
                         Expanded(
                           child: Column(
                             children: [
-                              _buildCheckboxRow("내비게이션", _hasNavigation, (v) => setState(() => _hasNavigation = v!), textColor, borderColor),
-                              _buildCheckboxRow("스마트키", _hasSmartKey, (v) => setState(() => _hasSmartKey = v!), textColor, borderColor),
+                              _buildCheckboxRow(
+                                  "내비게이션",
+                                  _hasNavigation,
+                                  (v) => setState(() => _hasNavigation = v!),
+                                  textColor,
+                                  borderColor),
+                              _buildCheckboxRow(
+                                  "스마트키",
+                                  _hasSmartKey,
+                                  (v) => setState(() => _hasSmartKey = v!),
+                                  textColor,
+                                  borderColor),
                               const SizedBox(height: 40), // Grid 높이 맞추기용
                             ],
                           ),
@@ -247,7 +283,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                     const SizedBox(height: 16),
 
                     // 지역 선택
-                    const Text("지역", style: TextStyle(color: Colors.grey, fontSize: 12)),
+                    const Text("지역",
+                        style: TextStyle(color: Colors.grey, fontSize: 12)),
                     const SizedBox(height: 8),
                     _buildDropdown(
                       hint: "서울/경기",
@@ -272,7 +309,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const ResultPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const ResultPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -293,7 +331,7 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              
+
               // 초기화 버튼
               Center(
                 child: TextButton(
@@ -349,7 +387,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
           value: value,
-          hint: Text(hint, style: TextStyle(color: Colors.grey[400], fontSize: 14)),
+          hint: Text(hint,
+              style: TextStyle(color: Colors.grey[400], fontSize: 14)),
           isExpanded: true,
           icon: Icon(Icons.keyboard_arrow_down, color: Colors.grey[400]),
           dropdownColor: isDark ? const Color(0xFF2C2C2C) : Colors.white,
@@ -369,8 +408,9 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
   Widget _buildChoiceChip(String label, bool isDark) {
     bool isSelected = _selectedFuel == label;
     // 다크모드일 때 선택되지 않은 칩의 배경색 조정
-    Color unselectedColor = isDark ? const Color(0xFF2C2C2C) : const Color(0xFFEAF2FF);
-    
+    Color unselectedColor =
+        isDark ? const Color(0xFF2C2C2C) : const Color(0xFFEAF2FF);
+
     return GestureDetector(
       onTap: () => setState(() => _selectedFuel = label),
       child: Container(
@@ -391,7 +431,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
     );
   }
 
-  Widget _buildCheckboxRow(String label, bool value, Function(bool?) onChanged, Color textColor, Color borderColor) {
+  Widget _buildCheckboxRow(String label, bool value, Function(bool?) onChanged,
+      Color textColor, Color borderColor) {
     return Row(
       children: [
         SizedBox(
@@ -400,7 +441,8 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
           child: Checkbox(
             value: value,
             onChanged: onChanged,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
             activeColor: const Color(0xFF0066FF),
             side: BorderSide(color: Colors.grey[400]!),
           ),

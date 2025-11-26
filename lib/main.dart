@@ -181,7 +181,6 @@ class HomePageContent extends StatelessWidget {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black87;
-    final subTextColor = isDark ? Colors.grey[400] : Colors.grey[500];
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -189,7 +188,7 @@ class HomePageContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            
+
             // 1. 메인 로그인 카드 영역
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -219,12 +218,13 @@ class HomePageContent extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    
+
                     // 아이디 입력
                     _buildTextField(hintText: "아이디", isDark: isDark),
                     const SizedBox(height: 12),
                     // 비밀번호 입력
-                    _buildTextField(hintText: "비밀번호", obscureText: true, isDark: isDark),
+                    _buildTextField(
+                        hintText: "비밀번호", obscureText: true, isDark: isDark),
                     const SizedBox(height: 20),
 
                     // 로그인 버튼
@@ -256,11 +256,14 @@ class HomePageContent extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        _buildSocialButton("N", const Color(0xFF03C75A), Colors.white),
+                        _buildSocialButton(
+                            "N", const Color(0xFF03C75A), Colors.white),
                         const SizedBox(width: 16),
-                        _buildSocialButton("K", const Color(0xFFFEE500), const Color(0xFF3C1E1E)),
+                        _buildSocialButton("K", const Color(0xFFFEE500),
+                            const Color(0xFF3C1E1E)),
                         const SizedBox(width: 16),
-                        _buildSocialButton("G", Colors.white, Colors.grey, isBorder: true),
+                        _buildSocialButton("G", Colors.white, Colors.grey,
+                            isBorder: true),
                       ],
                     ),
                     const SizedBox(height: 20),
@@ -287,7 +290,9 @@ class HomePageContent extends StatelessWidget {
                         Expanded(child: Divider(color: Colors.grey[200])),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text("또는", style: TextStyle(color: Colors.grey[400], fontSize: 12)),
+                          child: Text("또는",
+                              style: TextStyle(
+                                  color: Colors.grey[400], fontSize: 12)),
                         ),
                         Expanded(child: Divider(color: Colors.grey[200])),
                       ],
@@ -302,7 +307,8 @@ class HomePageContent extends StatelessWidget {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const CarInfoInputPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const CarInfoInputPage()),
                           );
                         },
                         style: OutlinedButton.styleFrom(
@@ -314,7 +320,8 @@ class HomePageContent extends StatelessWidget {
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.search, color: Color(0xFF0066FF), size: 20),
+                            Icon(Icons.search,
+                                color: Color(0xFF0066FF), size: 20),
                             SizedBox(width: 8),
                             Text(
                               "로그인 없이 시세 조회하기",
@@ -355,13 +362,17 @@ class HomePageContent extends StatelessWidget {
   }
 
   // Helper Widget: 텍스트 필드
-  Widget _buildTextField({required String hintText, bool obscureText = false, required bool isDark}) {
+  Widget _buildTextField(
+      {required String hintText,
+      bool obscureText = false,
+      required bool isDark}) {
     return Container(
       height: 50,
       decoration: BoxDecoration(
         color: isDark ? const Color(0xFF2C2C2C) : Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
+        border:
+            Border.all(color: isDark ? Colors.grey[700]! : Colors.grey[300]!),
       ),
       child: TextField(
         obscureText: obscureText,
@@ -377,7 +388,8 @@ class HomePageContent extends StatelessWidget {
   }
 
   // Helper Widget: 소셜 로그인 버튼
-  Widget _buildSocialButton(String text, Color bgColor, Color textColor, {bool isBorder = false}) {
+  Widget _buildSocialButton(String text, Color bgColor, Color textColor,
+      {bool isBorder = false}) {
     return Container(
       width: 48,
       height: 48,
@@ -442,13 +454,34 @@ class HomePageContent extends StatelessWidget {
   }
 
   // Helper Widget: 가로 스크롤 차량 리스트
-  Widget _buildHorizontalCarList({required bool isReversed, required bool isDark}) {
+  Widget _buildHorizontalCarList(
+      {required bool isReversed, required bool isDark}) {
     // 더미 데이터
     final List<Map<String, dynamic>> cars = [
-      {"name": "노란색 벤츠", "info": "2023년 / 0.8만KM", "price": "1억", "color": Colors.yellow},
-      {"name": "파란색 차", "info": "2024년 / 1만KM", "price": "8000만원", "color": Colors.blue},
-      {"name": "흰색 SUV", "info": "2025년 / 0.9만KM", "price": "9000만원", "color": Colors.grey[300]},
-      {"name": "검정 세단", "info": "2022년 / 3만KM", "price": "5500만원", "color": Colors.black87},
+      {
+        "name": "노란색 벤츠",
+        "info": "2023년 / 0.8만KM",
+        "price": "1억",
+        "color": Colors.yellow
+      },
+      {
+        "name": "파란색 차",
+        "info": "2024년 / 1만KM",
+        "price": "8000만원",
+        "color": Colors.blue
+      },
+      {
+        "name": "흰색 SUV",
+        "info": "2025년 / 0.9만KM",
+        "price": "9000만원",
+        "color": Colors.grey[300]
+      },
+      {
+        "name": "검정 세단",
+        "info": "2022년 / 3만KM",
+        "price": "5500만원",
+        "color": Colors.black87
+      },
     ];
 
     final displayList = isReversed ? cars.reversed.toList() : cars;
@@ -503,7 +536,8 @@ class CarCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: isDark ? Colors.grey[800]! : Colors.grey[50]!),
+        border:
+            Border.all(color: isDark ? Colors.grey[800]! : Colors.grey[50]!),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -532,7 +566,7 @@ class CarCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          
+
           // 차량 정보 텍스트
           Text(
             name,

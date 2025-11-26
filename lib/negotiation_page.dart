@@ -29,7 +29,7 @@ class _NegotiationPageState extends State<NegotiationPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final cardColor = isDark ? const Color(0xFF1E1E1E) : Colors.white;
     final textColor = isDark ? Colors.white : Colors.black;
-    final subTextColor = isDark ? Colors.grey[400] : Colors.black87;
+
     final borderColor = isDark ? Colors.grey[800]! : const Color(0xFFBBDEFB);
 
     return Scaffold(
@@ -83,9 +83,24 @@ class _NegotiationPageState extends State<NegotiationPage> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    _buildCheckboxItem("타이어 마모 상태 (교체 필요 어필)", _checkTire, (v) => setState(() => _checkTire = v!), textColor, isDark),
-                    _buildCheckboxItem("동급 매물 대비 높은 가격", _checkPrice, (v) => setState(() => _checkPrice = v!), textColor, isDark),
-                    _buildCheckboxItem("쿨거래 의사 표현 (계약금 즉시 입금)", _checkCoolDeal, (v) => setState(() => _checkCoolDeal = v!), textColor, isDark),
+                    _buildCheckboxItem(
+                        "타이어 마모 상태 (교체 필요 어필)",
+                        _checkTire,
+                        (v) => setState(() => _checkTire = v!),
+                        textColor,
+                        isDark),
+                    _buildCheckboxItem(
+                        "동급 매물 대비 높은 가격",
+                        _checkPrice,
+                        (v) => setState(() => _checkPrice = v!),
+                        textColor,
+                        isDark),
+                    _buildCheckboxItem(
+                        "쿨거래 의사 표현 (계약금 즉시 입금)",
+                        _checkCoolDeal,
+                        (v) => setState(() => _checkCoolDeal = v!),
+                        textColor,
+                        isDark),
                   ],
                 ),
               ),
@@ -99,7 +114,8 @@ class _NegotiationPageState extends State<NegotiationPage> {
                 ),
                 child: Row(
                   children: [
-                    _buildTabButton("문자 전송", Icons.chat_bubble_outline, 0, isDark),
+                    _buildTabButton(
+                        "문자 전송", Icons.chat_bubble_outline, 0, isDark),
                     _buildTabButton("전화 통화", Icons.phone_in_talk, 1, isDark),
                   ],
                 ),
@@ -107,9 +123,9 @@ class _NegotiationPageState extends State<NegotiationPage> {
               const SizedBox(height: 24),
 
               // 3. 탭 컨텐츠
-              if (_currentTabIndex == 0) 
-                _buildTextMessageView(isDark, cardColor, textColor) 
-              else 
+              if (_currentTabIndex == 0)
+                _buildTextMessageView(isDark, cardColor, textColor)
+              else
                 _buildPhoneCallView(isDark, cardColor, textColor, borderColor),
             ],
           ),
@@ -118,7 +134,8 @@ class _NegotiationPageState extends State<NegotiationPage> {
     );
   }
 
-  Widget _buildCheckboxItem(String text, bool value, Function(bool?) onChanged, Color textColor, bool isDark) {
+  Widget _buildCheckboxItem(String text, bool value, Function(bool?) onChanged,
+      Color textColor, bool isDark) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
@@ -129,10 +146,12 @@ class _NegotiationPageState extends State<NegotiationPage> {
             child: Checkbox(
               value: value,
               onChanged: onChanged,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6)),
               activeColor: isDark ? Colors.grey[700] : Colors.black,
               checkColor: Colors.white,
-              side: BorderSide(color: isDark ? Colors.grey[500]! : Colors.black),
+              side:
+                  BorderSide(color: isDark ? Colors.grey[500]! : Colors.black),
             ),
           ),
           const SizedBox(width: 12),
@@ -241,27 +260,39 @@ class _NegotiationPageState extends State<NegotiationPage> {
   }
 
   // 전화 통화 뷰
-  Widget _buildPhoneCallView(bool isDark, Color cardColor, Color textColor, Color borderColor) {
+  Widget _buildPhoneCallView(
+      bool isDark, Color cardColor, Color textColor, Color borderColor) {
     return Column(
       children: [
         Row(
           children: [
             Text(
               "단계별 통화 대본",
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
+              style: TextStyle(
+                  fontSize: 16, fontWeight: FontWeight.bold, color: textColor),
             ),
           ],
         ),
         const SizedBox(height: 16),
-        _buildScriptCard(1, "1단계: 인사 & 매물 확인", "\"사장님 안녕하세요, OO차량 아직 있나요?\"", cardColor, textColor, isDark),
-        _buildScriptCard(2, "2단계: 네고 시도", "\"차는 좋은데, 예산이 조금 초과돼서요. 30만원만 빼주시면 지금 바로 갈게요.\"", cardColor, textColor, isDark),
-        _buildScriptCard(3, "3단계: 마무리", "\"감사합니다. 문자로 주소 찍어주세요.\"", cardColor, textColor, isDark),
+        _buildScriptCard(1, "1단계: 인사 & 매물 확인", "\"사장님 안녕하세요, OO차량 아직 있나요?\"",
+            cardColor, textColor, isDark),
+        _buildScriptCard(
+            2,
+            "2단계: 네고 시도",
+            "\"차는 좋은데, 예산이 조금 초과돼서요. 30만원만 빼주시면 지금 바로 갈게요.\"",
+            cardColor,
+            textColor,
+            isDark),
+        _buildScriptCard(3, "3단계: 마무리", "\"감사합니다. 문자로 주소 찍어주세요.\"", cardColor,
+            textColor, isDark),
         const SizedBox(height: 24),
         Container(
           width: double.infinity,
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: isDark ? const Color(0xFF1A237E).withOpacity(0.3) : const Color(0xFFE3F2FD),
+            color: isDark
+                ? const Color(0xFF1A237E).withOpacity(0.3)
+                : const Color(0xFFE3F2FD),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(color: borderColor),
           ),
@@ -286,7 +317,8 @@ class _NegotiationPageState extends State<NegotiationPage> {
     );
   }
 
-  Widget _buildScriptCard(int step, String title, String content, Color cardColor, Color textColor, bool isDark) {
+  Widget _buildScriptCard(int step, String title, String content,
+      Color cardColor, Color textColor, bool isDark) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 16),
@@ -294,7 +326,8 @@ class _NegotiationPageState extends State<NegotiationPage> {
       decoration: BoxDecoration(
         color: cardColor,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: isDark ? Colors.grey[700]! : const Color(0xFF0066FF)),
+        border: Border.all(
+            color: isDark ? Colors.grey[700]! : const Color(0xFF0066FF)),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
