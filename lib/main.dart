@@ -14,6 +14,8 @@ import 'providers/recent_views_provider.dart';
 import 'providers/popular_cars_provider.dart';
 import 'widgets/deal_analysis_modal.dart';
 import 'widgets/model_deals_modal.dart';
+import 'widgets/market_trend_card.dart';
+import 'widgets/ai_pick_card.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -214,6 +216,24 @@ class _HomePageContentState extends State<HomePageContent> {
             // 1. Hero Section (New Design)
             _buildHeroSection(isDark),
 
+            const SizedBox(height: 24),
+
+            // 1.5 Market Trend & AI Pick Cards
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                children: [
+                  Expanded(child: const MarketTrendCard()),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: AiPickCard(
+                      onTap: _showAiPickDetails,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
             const SizedBox(height: 32),
 
             // 2. 인기 모델 추천 섹션
@@ -268,7 +288,7 @@ class _HomePageContentState extends State<HomePageContent> {
               height: 1.3,
             ),
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 42),
 
           // Check Price Button
           SizedBox(
@@ -309,7 +329,7 @@ class _HomePageContentState extends State<HomePageContent> {
             ),
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 42),
 
           // Login / Signup or Welcome Message
           if (!_isLoggedIn)
@@ -326,7 +346,7 @@ class _HomePageContentState extends State<HomePageContent> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  TextButton(
+                  OutlinedButton(
                     onPressed: () async {
                       await Navigator.push(
                         context,
@@ -335,13 +355,20 @@ class _HomePageContentState extends State<HomePageContent> {
                       );
                       _checkLoginStatus(); // Refresh status after returning
                     },
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(color: Colors.white, width: 1),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                    ),
                     child: const Text(
                       "로그인 / 회원가입",
                       style: TextStyle(
-                        color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.white,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -472,6 +499,28 @@ class _HomePageContentState extends State<HomePageContent> {
         avgPrice: car.avgPrice,
         medianPrice: car.medianPrice,
         listings: car.listings,
+        onCarViewed: (viewedCar) {
+          recentViewsProvider.addRecentCar(viewedCar);
+        },
+      ),
+    );
+  }
+
+  /// AI 추천 픽 클릭 시 상세 분석 모달 표시 (하드코딩된 데이터 사용)
+  void _showAiPickDetails() {
+    // 최근 조회 Provider (모달에서 매물 클릭 시 기록 추가용)
+    final recentViewsProvider = context.read<RecentViewsProvider>();
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => ModelDealsModal(
+        brand: "현대",
+        model: "그랜저 IG",
+        avgPrice: 2450,
+        medianPrice: 2380,
+        listings: 1240,
         onCarViewed: (viewedCar) {
           recentViewsProvider.addRecentCar(viewedCar);
         },
