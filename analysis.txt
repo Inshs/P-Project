@@ -1,0 +1,46 @@
+﻿Analyzing P-Project...                                          
+
+   info - The imported package 'url_launcher' isn't a dependency of the importing package - lib\main.dart:3:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:url_launcher/url_launcher.dart' - lib\main.dart:3:8 - uri_does_not_exist
+  error - The method 'canLaunchUrl' isn't defined for the type '_HomePageContentState' - lib\main.dart:242:19 - undefined_method
+  error - The method 'launchUrl' isn't defined for the type '_HomePageContentState' - lib\main.dart:243:17 - undefined_method
+  error - Undefined name 'LaunchMode' - lib\main.dart:243:38 - undefined_identifier
+   info - The imported package 'webview_flutter' isn't a dependency of the importing package - lib\oauth_webview_page.dart:2:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:webview_flutter/webview_flutter.dart' - lib\oauth_webview_page.dart:2:8 - uri_does_not_exist
+  error - Undefined class 'WebViewController' - lib\oauth_webview_page.dart:16:14 - undefined_class
+  error - The method 'WebViewController' isn't defined for the type '_OAuthWebViewPageState' - lib\oauth_webview_page.dart:30:19 - undefined_method
+  error - Undefined name 'JavaScriptMode' - lib\oauth_webview_page.dart:31:27 - undefined_identifier
+  error - The method 'NavigationDelegate' isn't defined for the type '_OAuthWebViewPageState' - lib\oauth_webview_page.dart:33:9 - undefined_method
+  error - Undefined class 'NavigationRequest' - lib\oauth_webview_page.dart:42:33 - undefined_class
+  error - Undefined name 'NavigationDecision' - lib\oauth_webview_page.dart:48:22 - undefined_identifier
+  error - Undefined name 'NavigationDecision' - lib\oauth_webview_page.dart:51:20 - undefined_identifier
+  error - Undefined class 'WebResourceError' - lib\oauth_webview_page.dart:53:32 - undefined_class
+  error - The method 'WebViewWidget' isn't defined for the type '_OAuthWebViewPageState' - lib\oauth_webview_page.dart:193:11 - undefined_method
+   info - The imported package 'shared_preferences' isn't a dependency of the importing package - lib\providers\popular_cars_provider.dart:3:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' - lib\providers\popular_cars_provider.dart:3:8 - uri_does_not_exist
+  error - Undefined name 'SharedPreferences' - lib\providers\popular_cars_provider.dart:115:27 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\providers\popular_cars_provider.dart:150:27 - undefined_identifier
+   info - The imported package 'shared_preferences' isn't a dependency of the importing package - lib\providers\recent_views_provider.dart:3:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' - lib\providers\recent_views_provider.dart:3:8 - uri_does_not_exist
+  error - Undefined name 'SharedPreferences' - lib\providers\recent_views_provider.dart:96:25 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\providers\recent_views_provider.dart:112:27 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\providers\recent_views_provider.dart:144:27 - undefined_identifier
+   info - The imported package 'http' isn't a dependency of the importing package - lib\services\api_service.dart:5:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:http/http.dart' - lib\services\api_service.dart:5:8 - uri_does_not_exist
+   info - The imported package 'http' isn't a dependency of the importing package - lib\services\auth_service.dart:4:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:http/http.dart' - lib\services\auth_service.dart:4:8 - uri_does_not_exist
+   info - The imported package 'shared_preferences' isn't a dependency of the importing package - lib\services\auth_service.dart:5:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' - lib\services\auth_service.dart:5:8 - uri_does_not_exist
+  error - Undefined name 'SharedPreferences' - lib\services\auth_service.dart:50:27 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\services\auth_service.dart:67:27 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\services\auth_service.dart:88:27 - undefined_identifier
+   info - The imported package 'shared_preferences' isn't a dependency of the importing package - lib\theme\theme_provider.dart:2:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:shared_preferences/shared_preferences.dart' - lib\theme\theme_provider.dart:2:8 - uri_does_not_exist
+  error - Undefined name 'SharedPreferences' - lib\theme\theme_provider.dart:18:25 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\theme\theme_provider.dart:28:25 - undefined_identifier
+  error - Undefined name 'SharedPreferences' - lib\theme\theme_provider.dart:39:25 - undefined_identifier
+   info - The imported package 'url_launcher' isn't a dependency of the importing package - lib\widgets\deal_analysis_modal.dart:2:8 - depend_on_referenced_packages
+  error - Target of URI doesn't exist: 'package:url_launcher/url_launcher.dart' - lib\widgets\deal_analysis_modal.dart:2:8 - uri_does_not_exist
+  error - The method 'launchUrl' isn't defined for the type '_DealAnalysisModalState' - lib\widgets\deal_analysis_modal.dart:490:13 - undefined_method
+  error - Undefined name 'LaunchMode' - lib\widgets\deal_analysis_modal.dart:490:34 - undefined_identifier
+

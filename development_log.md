@@ -63,8 +63,9 @@
   - **홈 화면 대응**: 홈 화면의 카드 및 텍스트 색상이 다크 모드 상태에 따라 동적으로 변경되도록 수정.
   - **전체 화면 적용**: `CarInfoInputPage`, `MyPage`, `ResultPage`, `NegotiationPage`의 하드코딩된 색상을 제거하고, `Theme.of(context)`를 사용하여 다크 모드 시 배경색, 텍스트 색상, 카드 색상이 올바르게 변경되도록 수정.
 
-### 2025-11-26
 - **GitHub 업로드**: 현재까지 작업한 모든 파일 및 변경 사항을 원격 저장소(`origin/main`)에 푸시 완료.
+
+## 2025-11-27 
 
 ### 8. 차량 상세 페이지 (`lib/car_detail_page.dart`)
 - **기능**:
@@ -93,3 +94,25 @@
 - **버그 수정 및 최적화**:
   - `flutter analyze`를 통해 모든 Lint 오류 및 문법 에러 해결.
   - `CarDetailPage`의 '좋아요' 버튼 로직을 별도 위젯(`_LikeButton`)으로 분리하여 상태 관리 오류 수정.
+
+### 11. 안드로이드 에뮬레이터 실행 환경 구축
+- **이슈**: Android SDK 및 에뮬레이터 미설치로 인한 실행 불가.
+- **해결**:
+  - Android Studio 및 AVD(Android Virtual Device) 설치 가이드 제공.
+  - 사용자 수동 설치 및 에뮬레이터 실행 유도.
+  - `flutter run -d emulator-5554` 명령어로 안드로이드 환경에서 앱 실행 성공.
+- **결과**: Windows 데스크톱뿐만 아니라 Android 환경에서도 앱 테스트 가능.
+
+
+## 2025-11-28
+
+### 12. 상세 필터 및 검색 고도화
+- **상세 필터 검색 (Advanced Filter)**:
+  - **기능**: 가격 범위, 연식 범위, 연료 타입, 변속기 등 다양한 조건으로 차량을 정밀하게 필터링.
+  - **UI**: `FilterBottomSheet`를 구현하여 직관적인 슬라이더(RangeSlider)와 칩(FilterChip) 인터페이스 제공.
+  - **상태 관리**: `SearchProvider`를 신규 생성하여 필터 조건(`priceRange`, `yearRange`, `selectedFuels` 등)과 검색어(`searchQuery`)를 전역 관리.
+  - **연동**: `CarInfoInputPage` 및 `ResultPage` 상단에 필터 버튼을 배치하여 접근성 강화. `ResultPage`에 필터링된 "추천 매물" 리스트 추가.
+- **마이페이지 검색 및 필터 (MyPage Search)**:
+  - **검색바**: `Autocomplete` 위젯을 도입하여 브랜드/모델명 입력 시 실시간 자동완성 추천 기능 구현.
+  - **통합 필터링**: 검색어와 상세 필터 조건이 `MyPage`의 '찜한 차량' 및 '최근 분석' 탭에 동시에 적용되도록 로직 고도화.
+  - **UX 개선**: 검색 결과가 없을 경우 안내 문구 표시 및 필터 초기화 버튼 제공.

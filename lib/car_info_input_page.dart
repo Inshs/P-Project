@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'result_page.dart';
+import 'services/api_service.dart';
+import 'utils/model_name_mapper.dart' as mapper;
 
 class CarInfoInputPage extends StatefulWidget {
-  const CarInfoInputPage({super.key});
+  /// 탭에서 열렸을 때는 false, push로 열렸을 때만 true
+  final bool showBackButton;
+
+  const CarInfoInputPage({super.key, this.showBackButton = false});
 
   @override
   State<CarInfoInputPage> createState() => _CarInfoInputPageState();
 }
 
 class _CarInfoInputPageState extends State<CarInfoInputPage> {
+  // API 서비스
+  final ApiService _apiService = ApiService();
+
   // 상태 변수들
   String? _selectedBrand;
   String? _selectedModel;
@@ -19,12 +27,18 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
   int _performanceRating = 4;
   bool _isAccidentFree = false;
 
+  // 로딩 상태
+  bool _isLoading = false;
+
   // 옵션 상태
   bool _hasSunroof = false;
   bool _hasNavigation = false;
   bool _hasLeatherSeats = false;
   bool _hasSmartKey = false;
   bool _hasRearCamera = false;
+
+  // 브랜드별 모델 목록 (utils/model_name_mapper.dart에서 가져옴)
+  Map<String, List<String>> get _brandModels => mapper.brandModels;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +53,15 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios, color: textColor),
-          onPressed: () => Navigator.pop(context),
-        ),
+        // 명시적 파라미터로 뒤로가기 버튼 제어
+        // 탭에서는 showBackButton = false (기본값)
+        leading: widget.showBackButton
+            ? IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: textColor),
+                onPressed: () => Navigator.pop(context),
+              )
+            : null,
+        automaticallyImplyLeading: false,
         title: Text(
           "차량 정보 입력",
           style: TextStyle(
@@ -82,9 +101,13 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                           child: _buildDropdown(
                             hint: "브랜드 선택",
                             value: _selectedBrand,
-                            items: ["현대", "기아", "BMW", "Mercedes"],
-                            onChanged: (val) =>
-                                setState(() => _selectedBrand = val),
+                            items: _brandModels.keys.toList(),
+                            onChanged: (val) {
+                              setState(() {
+                                _selectedBrand = val;
+                                _selectedModel = null; // 브랜드 변경 시 모델 초기화
+                              });
+                            },
                             isDark: isDark,
                             textColor: textColor,
                             borderColor: borderColor,
@@ -95,7 +118,9 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                           child: _buildDropdown(
                             hint: "모델 선택",
                             value: _selectedModel,
-                            items: ["아반떼", "쏘나타", "그랜저", "X5", "E-Class"],
+                            items: _selectedBrand != null
+                                ? _brandModels[_selectedBrand] ?? []
+                                : [],
                             onChanged: (val) =>
                                 setState(() => _selectedModel = val),
                             isDark: isDark,
@@ -107,11 +132,12 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                     ),
                     const SizedBox(height: 16),
 
-                    // 연식 선택
+                    // 연식 선택 (현재 연도 기준 동적 생성)
                     _buildDropdown(
-                      hint: "2024년",
+                      hint: "${DateTime.now().year}년",
                       value: _selectedYear,
-                      items: List.generate(10, (index) => "${2024 - index}년"),
+                      items: List.generate(
+                          11, (index) => "${DateTime.now().year - index}년"),
                       onChanged: (val) => setState(() => _selectedYear = val),
                       isDark: isDark,
                       textColor: textColor,
@@ -306,28 +332,32 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ResultPage()),
-                    );
-                  },
+                  onPressed: _isLoading ? null : _performSearch,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF0066FF),
+                    disabledBackgroundColor: Colors.grey[400],
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
                     elevation: 0,
                   ),
-                  child: const Text(
-                    "검색하기",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeWidth: 2,
+                          ),
+                        )
+                      : const Text(
+                          "검색하기",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
               const SizedBox(height: 16),
@@ -450,6 +480,135 @@ class _CarInfoInputPageState extends State<CarInfoInputPage> {
         const SizedBox(width: 8),
         Text(label, style: TextStyle(fontSize: 14, color: textColor)),
       ],
+    );
+  }
+
+  /// API 호출 및 검색 실행
+  Future<void> _performSearch() async {
+    // 유효성 검사
+    if (_selectedBrand == null || _selectedModel == null) {
+      _showError('브랜드와 모델을 선택해주세요');
+      return;
+    }
+
+    final mileage = int.tryParse(_mileageController.text.replaceAll(',', ''));
+    if (mileage == null || mileage < 0) {
+      _showError('주행거리를 올바르게 입력해주세요');
+      return;
+    }
+
+    // 연식 파싱 (현재 연도를 기본값으로)
+    int year = DateTime.now().year;
+    if (_selectedYear != null) {
+      year = int.tryParse(_selectedYear!.replaceAll('년', '')) ??
+          DateTime.now().year;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      // 연식에 따른 정확한 모델명 변환 (utils/model_name_mapper.dart 사용)
+      final backendModel =
+          mapper.getBackendModelName(_selectedBrand!, _selectedModel!, year);
+
+      // 성능점검 별표 → 등급 변환 (1-2: normal, 3-4: good, 5: excellent)
+      String inspectionGrade;
+      if (_performanceRating >= 5) {
+        inspectionGrade = 'excellent';
+      } else if (_performanceRating >= 3) {
+        inspectionGrade = 'good';
+      } else {
+        inspectionGrade = 'normal';
+      }
+
+      // 디버그: API 호출 전 파라미터 출력
+      debugPrint(
+          '🚗 API 호출: brand=$_selectedBrand, model=$_selectedModel → $backendModel, year=$year, mileage=$mileage, fuel=$_selectedFuel');
+      debugPrint(
+          '⚙️ 옵션: 선루프=$_hasSunroof, 내비=$_hasNavigation, 가죽시트=$_hasLeatherSeats, 스마트키=$_hasSmartKey, 후방카메라=$_hasRearCamera');
+      debugPrint('⭐ 성능점검: $_performanceRating → $inspectionGrade');
+      debugPrint('🌐 API URL: ${_apiService.currentBaseUrl}');
+
+      // 통합 분석 API 호출 (변환된 모델명 + 옵션 + 성능점검 포함)
+      final result = await _apiService.smartAnalysis(
+        brand: _selectedBrand!,
+        model: backendModel, // 연식 기반 변환된 모델명
+        year: year,
+        mileage: mileage,
+        fuel: _selectedFuel,
+        // 옵션 전달
+        hasSunroof: _hasSunroof,
+        hasNavigation: _hasNavigation,
+        hasLeatherSeat: _hasLeatherSeats,
+        hasSmartKey: _hasSmartKey,
+        hasRearCamera: _hasRearCamera,
+        // 성능점검 등급 전달
+        inspectionGrade: inspectionGrade,
+      );
+
+      // 디버그: API 응답 출력
+      debugPrint(
+          '✅ API 응답: 예측가격=${result.prediction.predictedPrice}, 신뢰도=${result.prediction.confidence}');
+
+      // 검색 이력 저장 (백그라운드)
+      _apiService.saveSearchHistory(
+        brand: _selectedBrand!,
+        model: backendModel,
+        year: year,
+        mileage: mileage,
+        predictedPrice: result.prediction.predictedPrice,
+      );
+
+      if (!mounted) return;
+
+      // 결과 페이지로 이동 (선택한 옵션 정보 포함)
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ResultPage(
+            analysisResult: result,
+            brand: _selectedBrand!,
+            model: _selectedModel!,
+            year: year,
+            mileage: mileage,
+            fuel: _selectedFuel,
+            selectedOptions: {
+              'sunroof': _hasSunroof,
+              'navigation': _hasNavigation,
+              'leatherSeat': _hasLeatherSeats,
+              'smartKey': _hasSmartKey,
+              'rearCamera': _hasRearCamera,
+            },
+            inspectionGrade: inspectionGrade,
+          ),
+        ),
+      );
+    } on ApiException catch (e) {
+      _showError(e.message);
+    } catch (e) {
+      _showError('예상치 못한 오류가 발생했습니다');
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
+  /// 에러 메시지 표시
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Colors.red[400],
+        behavior: SnackBarBehavior.floating,
+        action: SnackBarAction(
+          label: '확인',
+          textColor: Colors.white,
+          onPressed: () {},
+        ),
+      ),
     );
   }
 }

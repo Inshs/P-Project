@@ -36,6 +36,7 @@
     *   무사고 여부 및 주요 옵션(선루프, 내비게이션 등) 체크박스.
     *   지역 선택.
 *   **화면 연결**: 메인 화면에서 네비게이션(`Navigator.push`)을 통해 이동하도록 구현.
+*   **상세 필터**: AppBar 상단의 필터 버튼을 통해 가격, 연식, 연료 등 세부 조건 설정 가능 (`FilterBottomSheet`).
 
 ### 3.3. 시세 예측 결과 화면 (`lib/result_page.dart`)
 *   **구조**: 가격 분석, 구매 타이밍, AI 조언의 3개 탭으로 구성.
@@ -49,6 +50,7 @@
     *   AI 상세 조언 텍스트.
     *   허위매물 위험도 지표.
     *   문자 복사 및 전화 대본 기능 버튼 -> `NegotiationPage`로 이동.
+    *   **추천 매물 리스트**: 하단에 필터링된 유사 차량 리스트 제공 (필터 연동).
 
 ### 3.4. 네고 도우미 화면 (`lib/negotiation_page.dart`)
 *   **기능**: 사용자가 판매자와 협상할 때 유용한 도구 제공.
@@ -63,6 +65,7 @@
     *   **찜한 차량**: 사용자가 좋아요(하트)를 누른 차량 목록 표시.
     *   **최근 분석**: 최근 조회한 차량 목록 표시. 좋아요/알림 아이콘 클릭 시 상태 변경 및 리스트 반영.
     *   **상호작용**: 좋아요 클릭 시 '찜한 차량' 탭에 즉시 반영, 알림 클릭 시 토글 상태 변경 (기능 준비중).
+    *   **검색 및 필터**: 상단 검색바(자동완성)와 필터 버튼을 통해 리스트 실시간 필터링.
 
 ### 3.6. 설정 화면 (`lib/settings_page.dart`)
 *   **기능**: 앱 환경 설정 관리.
@@ -95,9 +98,20 @@
 *   **연동**: `ComparisonProvider`를 통해 전역 상태 관리 및 `MyPage`, `CarDetailPage`와 연동.
 
 
+### 3.10. 상세 필터 및 검색 (Search & Filter)
+*   **상세 필터 (Advanced Filter)**:
+    *   **기능**: 가격, 연식, 연료, 변속기 등 세부 조건으로 차량 검색.
+    *   **UI**: `FilterBottomSheet`를 통해 슬라이더 및 칩 UI 제공.
+    *   **적용**: `CarInfoInputPage`, `ResultPage`, `MyPage` 등 앱 전역에서 일관된 필터링 경험 제공.
+*   **검색 자동완성 (Autocomplete)**:
+    *   **기능**: `MyPage`에서 차량 이름 입력 시 실시간 추천 검색어 제공.
+    *   **로직**: 입력된 키워드가 포함된 차량 모델명을 즉시 필터링하여 리스트업.
+*   **통합 검색 엔진 (`SearchProvider`)**:
+    *   검색어와 필터 조건을 통합 관리하여 `MyPage`의 '찜한 차량', '최근 분석' 리스트 및 `ResultPage`의 추천 매물을 실시간으로 필터링.
+
 ## 4. 기술 스택
 *   **Framework**: Flutter (Dart)
-*   **Platform**: Windows (Desktop), Web (Chrome)
+*   **Platform**: Windows (Desktop), Web (Chrome), Android (Emulator)
 *   **Libraries**:
     *   `fl_chart`: 시세 그래프 구현
 *   **Design**: Material Design 3 (Custom Theming)
