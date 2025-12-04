@@ -69,7 +69,7 @@ class AiPickCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
             const SizedBox(height: 4),
-            Row(
+            const Row(
               children: [
                 Text(
                   "92점",
@@ -79,8 +79,8 @@ class AiPickCard extends StatelessWidget {
                     color: accentColor,
                   ),
                 ),
-                const SizedBox(width: 4),
-                const Text(
+                SizedBox(width: 4),
+                Text(
                   "🚀",
                   style: TextStyle(fontSize: 14),
                 ),

@@ -40,7 +40,7 @@ class MarketTrendCard extends StatelessWidget {
                   color: accentColor.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: Text(
+                child: const Text(
                   "오늘의 구매 지수",
                   style: TextStyle(
                     fontSize: 10,
@@ -49,7 +49,7 @@ class MarketTrendCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(Icons.trending_up, size: 16, color: accentColor),
+              const Icon(Icons.trending_up, size: 16, color: accentColor),
             ],
           ),
           const SizedBox(height: 12),
@@ -62,7 +62,7 @@ class MarketTrendCard extends StatelessWidget {
                   value: 0.85,
                   strokeWidth: 4,
                   backgroundColor: isDark ? Colors.grey[800] : Colors.grey[200],
-                  valueColor: AlwaysStoppedAnimation<Color>(accentColor),
+                  valueColor: const AlwaysStoppedAnimation<Color>(accentColor),
                   strokeCap: StrokeCap.round,
                 ),
               ),
@@ -70,7 +70,7 @@ class MarketTrendCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "85점",
                     style: TextStyle(
                       fontSize: 18,
